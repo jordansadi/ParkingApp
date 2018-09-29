@@ -27,8 +27,7 @@ public class Main {
             }
 
             else if (userInput == 1) {
-                Ticket userTicket = new Ticket();
-                CheckOut userCheckout = new CheckOut(userTicket);
+                CheckOut userCheckout = new CheckOut(newUser);
 
                 while(keepGoing) {
                     userCheckout.menu();

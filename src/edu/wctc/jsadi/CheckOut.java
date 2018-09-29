@@ -3,12 +3,12 @@ package edu.wctc.jsadi;
 import java.time.LocalTime;
 
 public class CheckOut {
-    Ticket userTicket;
-    static double checkinTotal = 0, lostTicketTotal = 0, total = 0;
-    static int checkins = 0, lostTickets = 0;
+    private CheckIn userCheckin;
+    private static double checkinTotal = 0, lostTicketTotal = 0, total = 0;
+    private static int checkins = 0, lostTickets = 0;
 
-    public CheckOut(Ticket userTicket) {
-        this.userTicket = userTicket;
+    public CheckOut(CheckIn userCheckin) {
+        this.userCheckin = userCheckin;
     }
 
     public void menu() {
@@ -20,40 +20,39 @@ public class CheckOut {
     }
 
     public void lostTicket() {
-        userTicket.amountDue = 25.00;
-        lostTicketTotal += userTicket.amountDue;
+        userCheckin.amountDue = 25.00;
+        lostTicketTotal += userCheckin.amountDue;
         lostTickets++;
-        total += lostTicketTotal;
     }
 
     public void userCheckout() {
-        userTicket.checkOut = LocalTime.of(13 + (int)(Math.random() * ((23 - 13) + 1)), 0);
-        userTicket.hoursParked = userTicket.checkOut.getHour() - userTicket.checkIn.getHour();
+        userCheckin.checkOut = LocalTime.of(13 + (int)(Math.random() * ((23 - 13) + 1)), 0);
+        userCheckin.hoursParked = userCheckin.checkOut.getHour() - userCheckin.checkIn.getHour();
 
-        if (userTicket.hoursParked > 3 && userTicket.hoursParked < 11) {
-            userTicket.amountDue += (userTicket.hoursParked - 3);
+        if (userCheckin.hoursParked > 3 && userCheckin.hoursParked < 11) {
+            userCheckin.amountDue += (userCheckin.hoursParked - 3);
         }
-        else if (userTicket.hoursParked > 11) {
-            userTicket.amountDue = 15.00;
+        else if (userCheckin.hoursParked > 11) {
+            userCheckin.amountDue = 15.00;
         }
 
-        checkinTotal += userTicket.amountDue;
+        checkinTotal += userCheckin.amountDue;
         checkins++;
-        total += checkinTotal;
     }
 
     public void receipt() {
         System.out.println("Best Value Parking Garage");
         System.out.println("=========================");
-        System.out.println("Receipt for vehicle ID " + Ticket.vehicleID);
-        if (userTicket.amountDue == 25.00)
+        System.out.println("Receipt for vehicle ID " + CheckIn.vehicleID);
+        if (userCheckin.amountDue == 25.00)
             System.out.println("\nLost Ticket");
         else
-            System.out.println("\n" + userTicket.hoursParked + " hours parked " + userTicket.checkIn + " - " + userTicket.checkOut);
-        System.out.printf("$%.2f\n", userTicket.amountDue);
+            System.out.println("\n" + userCheckin.hoursParked + " hours parked " + userCheckin.checkIn + " - " + userCheckin.checkOut);
+        System.out.printf("$%.2f\n", userCheckin.amountDue);
     }
 
     public static void summary() {
+        total = checkinTotal + lostTicketTotal;
         System.out.println("Best Value Parking Garage");
         System.out.println("=========================");
         System.out.println("Activity to Date\n");
