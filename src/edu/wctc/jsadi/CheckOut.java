@@ -4,7 +4,8 @@ import java.time.LocalTime;
 
 public class CheckOut {
     private CheckIn userCheckin;
-    private static double checkinTotal = 0, lostTicketTotal = 0, total = 0;
+    private static double checkinTotal = 0, lostTicketTotal = 0;
+    static double total = 0;
     private static int checkins = 0, lostTickets = 0;
     private String checkInPrint, checkOutPrint;
 
@@ -30,10 +31,10 @@ public class CheckOut {
         userCheckin.checkOut = LocalTime.of(13 + (int)(Math.random() * ((23 - 13) + 1)), 0);
         userCheckin.hoursParked = userCheckin.checkOut.getHour() - userCheckin.checkIn.getHour();
 
-        if (userCheckin.hoursParked > 3 && userCheckin.hoursParked < 11) {
+        if (userCheckin.hoursParked > 3 && userCheckin.hoursParked <= 13) {
             userCheckin.amountDue += (userCheckin.hoursParked - 3);
         }
-        else if (userCheckin.hoursParked > 11) {
+        else if (userCheckin.hoursParked > 13) {
             userCheckin.amountDue = 15.00;
         }
 
@@ -44,7 +45,7 @@ public class CheckOut {
     public void receipt() {
         System.out.println("Best Value Parking Garage");
         System.out.println("=========================");
-        System.out.println("Receipt for a vehicle id " + CheckIn.vehicleID);
+        System.out.println("Receipt for a vehicle id " + userCheckin.vehicleID);
 
         if (userCheckin.amountDue == 25.00)
             System.out.println("\nLost Ticket");
@@ -62,7 +63,6 @@ public class CheckOut {
     }
 
     public static void summary() {
-        total = checkinTotal + lostTicketTotal;
         System.out.println("Best Value Parking Garage");
         System.out.println("=========================");
         System.out.println("Activity to Date\n");

@@ -20,14 +20,22 @@ public class Main {
             lines = lineIn.split(",");
             newUser.amountDue = Double.parseDouble(lines[0]);
             newUser.checkIn = LocalTime.of(Integer.parseInt(lines[1].substring(0, 2)), 0);
-            newUser.checkOut = LocalTime.of(Integer.parseInt(lines[2].substring(0, 2)), 0);
+            try {
+                newUser.checkOut = LocalTime.of(Integer.parseInt(lines[2].substring(0, 2)), 0);
+            } catch (Exception e) {
+                newUser.checkOut = LocalTime.of(23, 0);
+            }
             newUser.hoursParked = Integer.parseInt(lines[3]);
-            CheckIn.vehicleID = Integer.parseInt(lines[4]);
+            newUser.vehicleID = Integer.parseInt(lines[4]);
             tickets.add(newUser);
         }
 
         while (runMenu) {
             CheckIn newUser = new CheckIn();
+
+            if (tickets.size() > 0)
+                newUser.vehicleID = tickets.get(tickets.size() - 1).vehicleID + 1;
+
             keepGoing = true;
             userInput = 0;
             newUser.menu();
@@ -40,11 +48,15 @@ public class Main {
 
             if (userInput == 3) {
                 runMenu = false;
+
+                for (CheckIn c : tickets)
+                    CheckOut.total += c.amountDue;
+
                 CheckOut.summary();
                 FileOutput outFile = new FileOutput("parkingTickets.txt");
                 for (CheckIn c : tickets) {
                     outFile.fileWrite(c.amountDue + "," + c.checkIn + "," + c.checkOut + ","
-                            + c.hoursParked + "," + CheckIn.vehicleID);
+                            + c.hoursParked + "," + c.vehicleID);
                 }
                 inFile.fileClose();
                 outFile.fileClose();

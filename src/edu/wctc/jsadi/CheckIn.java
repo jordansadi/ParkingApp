@@ -5,7 +5,7 @@ import java.time.LocalTime;
 public class CheckIn {
     LocalTime checkIn, checkOut;
     int hoursParked;
-    static int vehicleID = 100;
+    int vehicleID = 100;
     double amountDue = 5.00;
 
     public CheckIn(){
