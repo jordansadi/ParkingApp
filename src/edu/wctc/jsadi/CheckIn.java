@@ -1,7 +1,7 @@
 package edu.wctc.jsadi;
 
 public class CheckIn {
-    public CheckIn(Ticket userTicket){}
+    public CheckIn(){}
 
     public void menu() {
         System.out.println("Best Value Parking Garage");

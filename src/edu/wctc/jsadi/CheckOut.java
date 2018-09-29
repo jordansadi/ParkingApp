@@ -32,4 +32,15 @@ public class CheckOut {
             userTicket.amountDue = 15.00;
         }
     }
+
+    public void receipt() {
+        System.out.println("Best Value Parking Garage");
+        System.out.println("=========================");
+        System.out.println("Receipt for vehicle ID " + Ticket.vehicleID);
+        if (userTicket.amountDue == 25.00)
+            System.out.println("\nLost Ticket");
+        else
+            System.out.println("\n" + userTicket.hoursParked + " hours parked " + userTicket.checkIn + " - " + userTicket.checkOut);
+        System.out.printf("$%.2f", userTicket.amountDue);
+    }
 }
