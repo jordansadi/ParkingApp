@@ -45,17 +45,19 @@ public class CheckOut {
         System.out.println("Best Value Parking Garage");
         System.out.println("=========================");
         System.out.println("Receipt for a vehicle id " + CheckIn.vehicleID);
-        if (userCheckin.checkIn.getHour() < 12)
-            checkInPrint = userCheckin.checkIn.getHour() + "am";
-        else
-            checkInPrint = userCheckin.checkIn.getHour() + "pm";
-
-        checkOutPrint = (userCheckin.checkOut.getHour() - 12) + "pm";
 
         if (userCheckin.amountDue == 25.00)
             System.out.println("\nLost Ticket");
-        else
+        else {
+            if (userCheckin.checkIn.getHour() < 12)
+                checkInPrint = userCheckin.checkIn.getHour() + "am";
+            else
+                checkInPrint = userCheckin.checkIn.getHour() + "pm";
+
+            checkOutPrint = (userCheckin.checkOut.getHour() - 12) + "pm";
             System.out.println("\n" + userCheckin.hoursParked + " hours parked " + checkInPrint + " - " + checkOutPrint);
+        }
+
         System.out.printf("$%.2f\n", userCheckin.amountDue);
     }
 
