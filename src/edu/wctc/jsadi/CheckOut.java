@@ -4,6 +4,8 @@ import java.time.LocalTime;
 
 public class CheckOut {
     Ticket userTicket;
+    static double checkinTotal = 0, lostTicketTotal = 0, total = 0;
+    static int checkins = 0, lostTickets = 0;
 
     public CheckOut(Ticket userTicket) {
         this.userTicket = userTicket;
@@ -19,6 +21,9 @@ public class CheckOut {
 
     public void lostTicket() {
         userTicket.amountDue = 25.00;
+        lostTicketTotal += userTicket.amountDue;
+        lostTickets++;
+        total += lostTicketTotal;
     }
 
     public void userCheckout() {
@@ -31,6 +36,10 @@ public class CheckOut {
         else if (userTicket.hoursParked > 11) {
             userTicket.amountDue = 15.00;
         }
+
+        checkinTotal += userTicket.amountDue;
+        checkins++;
+        total += checkinTotal;
     }
 
     public void receipt() {
@@ -41,6 +50,15 @@ public class CheckOut {
             System.out.println("\nLost Ticket");
         else
             System.out.println("\n" + userTicket.hoursParked + " hours parked " + userTicket.checkIn + " - " + userTicket.checkOut);
-        System.out.printf("$%.2f", userTicket.amountDue);
+        System.out.printf("$%.2f\n", userTicket.amountDue);
+    }
+
+    public static void summary() {
+        System.out.println("Best Value Parking Garage");
+        System.out.println("=========================");
+        System.out.println("Activity to Date\n");
+        System.out.printf("$%.2f was collected from " + checkins + " check ins\n", checkinTotal);
+        System.out.printf("$%.2f was collected from " + lostTickets + " lost tickets\n", lostTicketTotal);
+        System.out.printf("\n$%.2f was collected overall", total);
     }
 }
