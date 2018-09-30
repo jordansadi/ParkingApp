@@ -4,6 +4,16 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This is the driver class for this package.
+ * It reads a file of tickets into an ArrayList, then runs the parking garage menu.
+ * Users can park in the garage, pay for a ticket or a lost ticket, and close the garage.
+ * Any new tickets are added to the ArrayList.
+ * When the garage is closed, it writes the ArrayList to the file and summarized the totals of payments made.
+ * Created by jsadi on 9/29/2018
+ * @author Jordan Sadi
+ * @version 2018 0929 .1
+ */
 public class Main {
 
     public static void main(String[] args) {
